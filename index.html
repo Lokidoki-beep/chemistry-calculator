@@ -99,7 +99,8 @@ function calc(){
    return p.covers.indexOf(cover)>=0 &&
           (!warm || p.warm) &&
           (!wet || p.wet) &&
-          (surface!=="wall" || p.wall);
+          (surface!=="wall" || p.wall) &&
+          (task!=="strength" || p.id==="G" || p.id==="P");
  });
 
  var priority={P:1,G:2,K:3,H:4};
