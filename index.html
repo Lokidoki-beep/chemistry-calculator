@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Lechner — калькулятор материалов</title>
+  <title>Калькулятор подбора грунта и клея</title>
   <style>
     :root { --ink:#191919; --muted:#6a6a6a; --line:#dedede; --orange:#f5793d; --orange-dark:#d95d26; --pale:#f5f5f3; --paper:#fff; --black:#151515; }
     * { box-sizing:border-box; } body { margin:0; background:#f2f2f0; color:var(--ink); font:16px/1.45 Arial, Helvetica, sans-serif; }
@@ -32,18 +32,53 @@
     <section class="card">
       <h2>Параметры объекта</h2>
       <div class="grid">
-        <label>Тип покрытия<select id="covering"><option value="">Выберите покрытие</option><option value="SPC">SPC</option><option value="LVT">LVT</option><option value="ПВХ">ПВХ</option><option value="Паркет">Паркет</option><option value="Фанера">Фанера</option></select></label>
+        <label>Тип покрытия<select id="covering">
+          <option value="">Выберите покрытие</option>
+          <option value="SPC">SPC</option>
+          <option value="LVT">LVT</option>
+          <option value="ПВХ">ПВХ</option>
+          <option value="Паркет">Паркет</option>
+          <option value="Фанера">Фанера</option>
+        </select></label>
         <label>Площадь, м²<input id="area" type="number" min="0" step="0.1" placeholder="Например, 50"></label>
-        <label id="parquetSize" class="hidden">Ширина паркета<select id="parquet"><option value="">Выберите размер</option><option value="<200">До 200 мм</option><option value=">200">Более 200 мм</option></select></label>
+        <label id="parquetSize" class="hidden">Ширина паркета<select id="parquet">
+          <option value="">Выберите размер</option>
+          <option value="<200">До 200 мм</option>
+          <option value=">200">Более 200 мм</option>
+        </select></label>
       </div>
     </section>
-    <section id="criteriaCard" class="card hidden"><h2>Критерии</h2><div id="criteria" class="criteria"></div><button id="calculate" class="calculate-button" type="button">Рассчитать</button></section>
+    <section id="criteriaCard" class="card hidden">
+      <h2>Критерии</h2>
+      <div id="criteria" class="criteria">
+      </div>
+      <button id="calculate" class="calculate-button" type="button">Рассчитать</button>
+    </section>
     <section id="results" class="card hidden" aria-live="polite">
       <h2>Результат</h2>
       <div id="summary" class="summary"></div>
-      <div class="columns"><div class="result-box"><h3>Подходящие грунты</h3><div id="primers"></div></div><div class="result-box"><h3>Подходящие клеи</h3><div id="adhesives"></div></div></div>
-      <p class="footnote">Расход грунта: 120 г/м². Тара клея рассчитана по правилу: полные большие упаковки, затем при остатке больше 80% большой — ещё большая; при остатке не более 80% — малая. Если малой упаковки нет, добавляется большая.</p>
-      <div class="order-block"><h3>Ваш заказ</h3><div class="order-grid"><label>Наименование юрлица<input id="legalEntity" type="text" placeholder="Например, ООО «СтройПроект»"></label><label>Текст заказа<textarea id="orderText" readonly>Заказ от:\n\nТовар</textarea></label></div><button id="copyOrder" class="copy-button" type="button">Скопировать заказ</button></div>
+      <div class="columns">
+        <div class="result-box">
+          <h3>Подходящие грунты</h3>
+          <div id="primers"></div>
+        </div>
+        <div class="result-box">
+          <h3>Подходящие клеи</h3>
+          <div id="adhesives">
+          </div>
+        </div>
+      </div>
+      <p class="footnote">Расход грунта: 120 г/м². Тара клея рассчитана по правилу: полные большие упаковки, затем при остатке больше 80% большой - ещё большая; при остатке не более 80% - малая. Если малой упаковки нет, добавляется большая.</p>
+      <div class="order-block">
+        <h3>Ваш заказ</h3>
+        <div class="order-grid">
+          <label>Наименование юрлица<input id="legalEntity" type="text" placeholder="Например, ООО «СтройПроект»">
+          </label>
+          <label>Текст заказа<textarea id="orderText" readonly>Заказ от:\n\nТовар</textarea>
+          </label>
+        </div>
+        <button id="copyOrder" class="copy-button" type="button">Скопировать заказ</button>
+      </div>
     </section>
   </main>
 <script>
@@ -56,21 +91,32 @@
     'Фанера':['Подготовка основания']
   };
   const criterionOptions = {
-    'Тип основания':['Впитывающее','Невпитывающее'], 'Подготовка основания':['Обеспылить','Укрепить и обеспылить'],
-    'Поверхность':['Пол','Стены'], 'Тёплый пол':['Нет','Да'], 'Мокрая зона':['Нет','Да'], 'Тип ПВХ':['Рулонный','Плитка'],
+    'Тип основания':['Впитывающее','Невпитывающее'], 
+    'Подготовка основания':['Обеспылить','Укрепить и обеспылить'],
+    'Поверхность':['Пол','Стены'], 
+    'Тёплый пол':['Нет','Да'], 
+    'Мокрая зона':['Нет','Да'], 
+    'Тип ПВХ':['Рулонный','Плитка'],
     'На что клеим':['На стяжку','На фанеру']
   };
   const primers = [
-    {name:'Primer D Plus', task:'Обеспылить'}, {name:'PRIMER PU 150 SPEED', task:'Укрепить и обеспылить'},
-    {name:'PRIMER PU ANTIDUST', task:'Укрепить и обеспылить'}, {name:'PU Primer SF', task:'Укрепить и обеспылить'}, {name:'U-Primer 150', task:'Укрепить и обеспылить'}
+    {name:'Primer D Plus', task:'Обеспылить'}, 
+    //{name:'PRIMER PU 150 SPEED', task:'Укрепить и обеспылить'},
+    {name:'PRIMER PU ANTIDUST', task:'Укрепить и обеспылить'}, 
+    {name:'PU Primer SF', task:'Укрепить и обеспылить'}, 
+    {name:'Primer 150', task:'Укрепить и обеспылить'}
   ];
   const products = [
-    {name:'HYCOL KD FIBER', covers:['LVT','ПВХ'], packs:[5,18], requires:{'Тип основания':'Впитывающее','Подготовка основания':'Обеспылить'}}, {name:'HYCOSTIK FIBER', covers:['LVT','ПВХ'], packs:[5,18], requires:{'Тип основания':'Впитывающее','Подготовка основания':'Обеспылить'}},
-    {name:'Legnopol 4000', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[10]}, {name:'IZOPUR 2K', covers:['Паркет','Фанера'], parquet:['<200'], packs:[10]},
-    {name:'Gommapur', covers:['SPC','LVT','ПВХ'], packs:[10]}, {name:'Bona R-820', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[15]},
-    {name:'POLIFLEX SPC', covers:['SPC','LVT','ПВХ'], packs:[5,15]}, {name:'S-bond flex', covers:['Паркет','Фанера'], parquet:['<200'], packs:[14]},
-    {name:'SMP BOND', covers:['Паркет','Фанера'], parquet:['<200'], packs:[15]}, {name:'MSP BOND', covers:['Паркет','Фанера'], parquet:['<200'], packs:[14]},
-    {name:'SMP BOND 200', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[15]}
+    {name:'HYCOL KD FIBER', covers:['LVT','ПВХ'], packs:[5,18], requires:{'Тип основания':'Впитывающее','Подготовка основания':'Обеспылить'}}, 
+    {name:'HYCOSTIK FIBER', covers:['LVT','ПВХ'], packs:[5,18], requires:{'Тип основания':'Впитывающее','Подготовка основания':'Обеспылить'}},
+    {name:'Gommapur', covers:['SPC','LVT','ПВХ'], packs:[10]},
+    {name:'POLIFLEX SPC', covers:['SPC','LVT','ПВХ'], packs:[5,15]}, 
+    {name:'Bona R-820', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[15]},
+    {name:'S-bond flex', covers:['Паркет','Фанера'], parquet:['<200'], packs:[14]},
+    {name:'Legnopol 4000', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[10]}, 
+    {name:'IZOPUR 2K', covers:['Паркет','Фанера'], parquet:['<200'], packs:[10]},
+    //{name:'SMP BOND', covers:['Паркет','Фанера'], parquet:['<200'], packs:[15]}, {name:'MSP BOND', covers:['Паркет','Фанера'], parquet:['<200'], packs:[14]},
+    //{name:'SMP BOND 200', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[15]}
   ];
   const consumption = {'SPC':600,'LVT':320,'ПВХ':320,'Фанера':1000,'Паркет|<200':1200,'Паркет|>200':1500};
   const $ = id => document.getElementById(id); const fmt = n => new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(n);
