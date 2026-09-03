@@ -27,7 +27,14 @@
   </style>
 </head>
 <body>
-  <header class="top"><div class="wrap"><div class="nav"><div class="brand">КЛЕЙПРОМ</div></div><p>Калькулятор подбора<br>клея и грунта</p></div></header>
+  <header class="top">
+    <div class="wrap">
+      <div class="nav">
+        <div class="brand">КЛЕЙПРОМ</div>
+      </div>
+      <p>Калькулятор подбора<br>клея и грунта</p>
+    </div>
+  </header>
   <main class="wrap">
     <section class="card">
       <h2>Параметры объекта</h2>
@@ -40,12 +47,14 @@
           <option value="Паркет">Паркет</option>
           <option value="Фанера">Фанера</option>
         </select></label>
-        <label>Площадь, м²<input id="area" type="number" min="0" step="0.1" placeholder="Например, 50"></label>
+        <label>Площадь, м²<input id="area" type="number" min="0" step="0.1" placeholder="Например, 50">
+        </label>
         <label id="parquetSize" class="hidden">Ширина паркета<select id="parquet">
           <option value="">Выберите размер</option>
           <option value="<200">До 200 мм</option>
           <option value=">200">Более 200 мм</option>
-        </select></label>
+        </select>
+        </label>
       </div>
     </section>
     <section id="criteriaCard" class="card hidden">
@@ -56,11 +65,13 @@
     </section>
     <section id="results" class="card hidden" aria-live="polite">
       <h2>Результат</h2>
-      <div id="summary" class="summary"></div>
+      <div id="summary" class="summary">
+      </div>
       <div class="columns">
         <div class="result-box">
           <h3>Подходящие грунты</h3>
-          <div id="primers"></div>
+          <div id="primers">
+          </div>
         </div>
         <div class="result-box">
           <h3>Подходящие клеи</h3>
@@ -72,7 +83,7 @@
       <div class="order-block">
         <h3>Ваш заказ</h3>
         <div class="order-grid">
-          <label>Наименование юрлица<input id="legalEntity" type="text" placeholder="Например, ООО «СтройПроект»">
+          <label>Наименование юрлица<input id="legalEntity" type="text" placeholder="Например, ООО «Ромашка»">
           </label>
           <label>Текст заказа<textarea id="orderText" readonly>Заказ от:\n\nТовар</textarea>
           </label>
@@ -119,11 +130,13 @@
     //{name:'SMP BOND 200', covers:['Паркет','Фанера'], parquet:['<200','>200'], packs:[15]}
   ];
   const consumption = {'SPC':600,'LVT':320,'ПВХ':320,'Фанера':1000,'Паркет|<200':1200,'Паркет|>200':1500};
-  const $ = id => document.getElementById(id); const fmt = n => new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(n);
+  const $ = id => document.getElementById(id); 
+  const fmt = n => new Intl.NumberFormat('ru-RU',{maximumFractionDigits:1}).format(n);
   const chosenProducts = new Set(); let orderItems = {};
   function drawCriteria() {
     const cover = $('covering').value, host = $('criteria'); host.innerHTML = '';
-    $('parquetSize').classList.toggle('hidden', cover !== 'Паркет'); $('criteriaCard').classList.toggle('hidden', !cover);
+    $('parquetSize').classList.toggle('hidden', cover !== 'Паркет');
+    $('criteriaCard').classList.toggle('hidden', !cover);
     (criteriaMatrix[cover] || []).forEach(name => {
       const options = criterionOptions[name].map(v => `<option>${v}</option>`).join('');
       host.insertAdjacentHTML('beforeend', `<div class="criterion"><label>${name}<select data-criterion="${name}">${options}</select></label></div>`);
@@ -146,9 +159,12 @@
   }
   function calculate(showErrors = false) {
     const cover=$('covering').value, area=parseFloat($('area').value), parquet=$('parquet').value;
-    if (!cover) { if (showErrors) alert('Выберите тип покрытия.'); return; }
-    if (!(area>0)) { if (showErrors) alert('Введите площадь больше нуля.'); return; }
-    if (cover==='Паркет' && !parquet) { if (showErrors) alert('Выберите ширину паркета.'); return; }
+    if (!cover) { if (showErrors) alert('Выберите тип покрытия.');
+                 return; }
+    if (!(area>0)) { if (showErrors) alert('Введите площадь больше нуля.'); 
+                    return; }
+    if (cover==='Паркет' && !parquet) { if (showErrors) alert('Выберите ширину паркета.'); 
+                                       return; }
     const key=cover==='Паркет'?`Паркет|${parquet}`:cover, rate=consumption[key], required=area*rate/1000;
     const answers=Object.fromEntries([...document.querySelectorAll('[data-criterion]')].map(element=>[element.dataset.criterion,element.value]));
     const task=answers['Подготовка основания'] || '';
@@ -157,11 +173,18 @@
     const selected=products.filter(p => p.covers.includes(cover) && (cover!=='Паркет' || p.parquet.includes(parquet)) && (!p.requires || Object.entries(p.requires).every(([criterion,value])=>answers[criterion]===value)) && (cover!=='ПВХ' || answers['Тип ПВХ']!=='Рулонный' || p.name==='HYCOL KD FIBER') && (answers['Мокрая зона'] !== 'Да' || ['POLIFLEX SPC','Gommapur'].includes(p.name)) && (answers['Поверхность'] !== 'Стены' || p.name==='POLIFLEX SPC'));
     const selectedPrimers=primers.filter(p=>p.task===task);
     orderItems = {};
-    selectedPrimers.forEach(p => { const id=`primer:${p.name}`; const count=Math.ceil(primerRequired/5); orderItems[id]={name:p.name,purchase:`${count} × 5 л/кг`}; });
-    selected.forEach(p => { const id=`adhesive:${p.name}`; const plan=packPlan(required,p.packs); orderItems[id]={name:p.name,purchase:plan.map(x=>`${x.count} × ${x.size} кг`).join(' + ')}; });
+    selectedPrimers.forEach(p => { const id=`primer:${p.name}`; 
+                                  const count=Math.ceil(primerRequired/5); orderItems[id]={name:p.name,purchase:`${count} × 5 л/кг`}; });
+    selected.forEach(p => { const id=`adhesive:${p.name}`; 
+                           const plan=packPlan(required,p.packs); orderItems[id]={name:p.name,purchase:plan.map(x=>`${x.count} × ${x.size} кг`).join(' + ')}; });
     [...chosenProducts].forEach(id => { if (!orderItems[id]) chosenProducts.delete(id); });
-    $('primers').innerHTML=selectedPrimers.length ? selectedPrimers.map(p=>{const id=`primer:${p.name}`,count=Math.ceil(primerRequired/5);return `<div class="item"><label class="select-product"><input type="checkbox" data-product-id="${id}" ${chosenProducts.has(id)?'checked':''}>Выбрать продукт</label><strong>${p.name} — ${fmt(primerRequired)} кг</strong><div class="note">${p.task}</div><div class="pack">Купить: ${count} × 5 л/кг</div></div>`;}).join('') : '<div class="item empty">Выберите подготовку основания в критериях.</div>';
-    $('adhesives').innerHTML=selected.length ? selected.map(p=>{const id=`adhesive:${p.name}`,plan=packPlan(required,p.packs); const text=plan.map(x=>`${x.count} × ${x.size} кг`).join(' + '); const total=plan.reduce((s,x)=>s+x.size*x.count,0);return `<div class="item"><label class="select-product"><input type="checkbox" data-product-id="${id}" ${chosenProducts.has(id)?'checked':''}>Выбрать продукт</label><strong>${p.name} — ${fmt(required)} кг</strong><div class="pack">Купить: ${text}</div><div class="note">Всего в таре: ${fmt(total)} кг</div></div>`;}).join('') : '<div class="item empty">Подходящие клеи по выбранным условиям не найдены.</div>';
+    $('primers').innerHTML=selectedPrimers.length ? selectedPrimers.map(p=>{const id=`primer:${p.name}`,count=Math.ceil(primerRequired/5);
+                                                                            return `<div class="item"><label class="select-product"><input type="checkbox" data-product-id="${id}" ${chosenProducts.has(id)?'checked':''}>Выбрать продукт</label><strong>${p.name} — ${fmt(primerRequired)} кг</strong><div class="note">${p.task}</div><div class="pack">Купить: ${count} × 5 л/кг</div></div>`;
+                                                                           }).join('') : '<div class="item empty">Выберите подготовку основания в критериях.</div>';
+    $('adhesives').innerHTML=selected.length ? selected.map(p=>{const id=`adhesive:${p.name}`,plan=packPlan(required,p.packs); const text=plan.map(x=>`${x.count} × ${x.size} кг`).join(' + '); 
+                                                                const total=plan.reduce((s,x)=>s+x.size*x.count,0);
+                                                                return `<div class="item"><label class="select-product"><input type="checkbox" data-product-id="${id}" ${chosenProducts.has(id)?'checked':''}>Выбрать продукт</label><strong>${p.name} — ${fmt(required)} кг</strong><div class="pack">Купить: ${text}</div><div class="note">Всего в таре: ${fmt(total)} кг</div></div>`;
+                                                               }).join('') : '<div class="item empty">Подходящие клеи по выбранным условиям не найдены.</div>';
     updateOrderText();
     $('results').classList.remove('hidden');
   }
@@ -169,9 +192,18 @@
   $('covering').addEventListener('change', refresh);
   $('area').addEventListener('input', () => calculate(false));
   $('parquet').addEventListener('change', () => calculate(false));
-  document.addEventListener('change', event => { if (event.target.matches('[data-criterion]')) calculate(false); if (event.target.matches('[data-product-id]')) { const id=event.target.dataset.productId; event.target.checked ? chosenProducts.add(id) : chosenProducts.delete(id); updateOrderText(); } });
+  document.addEventListener('change', event => { if (event.target.matches('[data-criterion]')) calculate(false);
+                                                if (event.target.matches('[data-product-id]')) { const id=event.target.dataset.productId;
+                                                                                                event.target.checked ? chosenProducts.add(id) : chosenProducts.delete(id); updateOrderText();
+                                                                                               } });
   $('legalEntity').addEventListener('input', updateOrderText);
-  $('copyOrder').addEventListener('click', async () => { const text=$('orderText').value; try { await navigator.clipboard.writeText(text); $('copyOrder').textContent='Скопировано'; setTimeout(()=>{$('copyOrder').textContent='Скопировать заказ';},1600); } catch { $('orderText').select(); document.execCommand('copy'); } });
+  $('copyOrder').addEventListener('click', async () => { const text=$('orderText').value;
+                                                        try { await navigator.clipboard.writeText(text);
+                                                             $('copyOrder').textContent='Скопировано'; 
+                                                             setTimeout(()=>{$('copyOrder').textContent='Скопировать заказ';
+                                                                            },1600);
+                                                            } catch { $('orderText').select();
+                                                                     document.execCommand('copy'); } });
   $('calculate').addEventListener('click', () => calculate(true));
 })();
 </script>
