@@ -5,232 +5,306 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Калькулятор подбора грунта и клея</title>
   <style>
-    :root { --ink:#191919;
-           --muted:#6a6a6a;
-           --line:#dedede;
-           --orange:#f5793d;
-           --orange-dark:#d95d26;
-           --pale:#f5f5f3;
-           --paper:#fff;
-           --black:#151515; }
-    * { box-sizing:border-box; } 
-    body { margin:0;
-          background:#f2f2f0;
-          color:var(--ink);
-          font:16px/1.45 Arial, Helvetica, sans-serif; }
-    .top { color:#fff;
-          padding:0 20px 40px;
-          background:linear-gradient(90deg,#111b 0%,#111e 48%,#1119 100%),
-            radial-gradient(circle at 84% 27%,#4b4b4b 0 5%,transparent 5.4%),
-            linear-gradient(125deg,#222 0%,#111 57%,#3c332f 100%);
-          border-bottom:5px solid var(--orange); } 
-    .wrap { max-width:1120px;
-           margin:auto; }
-    .nav { min-height:86px;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          border-bottom:1px solid #ffffff40; } 
-    .brand { display:flex;
-            gap:13px;
-            align-items:center;
-            font-weight:800;
-            font-size:25px;
-            letter-spacing:2px; } 
-    .top p { max-width:700px;
-            margin:52px auto 0;
-            text-align:center;
-            font-size:28px;
-            line-height:1.12;
-            font-weight:800;
-            text-transform:uppercase;
-            letter-spacing:.3px; } 
-    main { padding:30px 20px 54px; }
-    .card { background:var(--paper);
-           border:1px solid var(--line);
-           border-radius:0;
-           padding:28px;
-           box-shadow:0 2px 8px #00000009;
-           margin-bottom:18px; }
-    h2 { display:flex;
-        align-items:center;
-        gap:12px;
-        font-size:20px;
-        margin:0 0 22px;
-        text-transform:uppercase;
-        letter-spacing:.5px; } 
-    h2:before { content:'';
-               display:block;
-               width:5px;
-               height:24px;
-               background:var(--orange); }
-    h3 { font-size:16px;
-        margin:0 0 10px;
-        text-transform:uppercase;
-        letter-spacing:.3px; }
-    .grid { display:grid;
-           grid-template-columns:repeat(3,1fr);
-           gap:16px; }
-    label { display:block;
-           font-weight:700;
-           font-size:12px;
-           letter-spacing:.4px;
-           text-transform:uppercase; }
-    select,input { margin-top:7px;
-                  width:100%;
-                  appearance:auto;
-                  border:1px solid #c9c9c9;
-                  border-radius:0;
-                  padding:13px 12px;
-                  font:16px Arial,sans-serif;
-                  background:#fff;
-                  color:var(--ink); } 
-    input:focus,select:focus { outline:3px solid #f5793d44;
-                              border-color:var(--orange); }
-    .criteria { display:grid;
-               grid-template-columns:repeat(3,1fr);
-               gap:14px; } 
-    .criterion { padding:14px;
-                background:var(--pale);
-                border-top:3px solid var(--orange);
-                border-radius:0; }
-    .criterion label { font-size:11px; } 
-    .criterion select { padding:10px;
-                       font-size:14px; }
-    button { border:0; cursor:pointer;
-            border-radius:0;
-            padding:14px 25px;
-            background:var(--orange);
-            color:#fff;
-            font-size:14px;
-            font-weight:800;
-            letter-spacing:.6px;
-            text-transform:uppercase; } 
-    button:hover { background:var(--orange-dark); } 
-    .calculate-button { width:100%;
-                       margin-top:22px; }
-    .hidden { display:none!important; } 
-    .summary { display:flex;
-              align-items:center;
-              gap:20px;
-              flex-wrap:wrap;
-              padding:13px 20px;
-              border-radius:0;
-              background:var(--black);
-              color:#fff;
-              margin-bottom:18px;
-              font-size:14px; } 
-    .summary b { color:var(--orange);
-                font-size:18px; }
-    .columns { display:grid;
-              grid-template-columns:repeat(2,minmax(0,1fr));
-              gap:18px; } 
-    .result-box { border:1px solid var(--line);
-                 border-radius:0;
-                 overflow:hidden; } 
-    .result-box h3 { padding:16px 17px;
-                    background:var(--black);
-                    color:#fff;
-                    margin:0; }
-    .item { position:relative;
-           padding:16px 17px 16px 54px;
-           border-top:1px solid var(--line); } 
-    .item strong { display:block;
-                  font-size:16px; } 
-    .note { font-size:13px;
-           color:var(--muted);
-           margin-top:4px; }
-    .pack { margin-top:10px;
-           color:var(--orange-dark);
-           font-weight:800; } 
-    .empty { color:var(--muted);
-            font-style:italic; }
-    .footnote { border-left:3px solid var(--orange);
-               padding-left:12px;
-               color:var(--muted);
-               font-size:13px;
-               margin:18px 0 0; }
-    .select-product { position:absolute;
-                     left:17px;
-                     top:50%;
-                     transform:translateY(-50%);
-                     margin:0;
-                     cursor:pointer; } 
-    .select-product input { appearance:none;
-                           display:block;
-                           width:20px;
-                           height:20px;
-                           margin:0;
-                           padding:0;
-                           border:1px solid #aaa;
-                           background:#fff;
-                           cursor:pointer; } 
-    .select-product input:checked { border-color:var(--orange);
-                                   background:var(--orange); } 
-    .select-product input:checked:after { content:'✓';
-                                         display:block;
-                                         color:#fff;
-                                         font-size:16px;
-                                         font-weight:800;
-                                         text-align:center;
-                                         line-height:18px; }
-    .order-block { margin-top:28px;
-                  padding:24px;
-                  background:var(--pale);
-                  border-top:4px solid var(--orange); } 
-    .order-block h3 { margin-bottom:18px;
-                     text-align:center;
-                     font-size:18px; } 
-    .order-block h3:after { content:'';
-                           display:block;
-                           width:42px;
-                           height:3px;
-                           margin:9px auto 0;
-                           background:var(--orange); } 
-    .order-grid { display:grid;
-                 grid-template-columns:1fr;
-                 gap:16px; } 
-    .order-block label { text-align:center; }
-    textarea { width:100%;
-              min-height:166px;
-              margin-top:7px;
-              resize:vertical;
-              border:1px solid #c9c9c9;
-              border-radius:0;
-              padding:13px;
-              font:14px/1.5 Arial,sans-serif;
-              color:var(--ink);
-              background:#fff; } 
-    .copy-button { display:block;
-                  margin:15px auto 0; }
-    @media(max-width:720px) { 
-      .grid,.criteria,.columns { grid-template-columns:1fr; } 
-      .nav { min-height:70px; } 
-      .top p { margin-top:36px;
-              font-size:23px; } 
-      .card { padding:20px; } }
-  
-/* Compact UI */
-body{margin:0;font-size:14px;}
-.container{max-width:980px;padding:20px 16px;}
-header{padding:14px 0 18px;}
-header h1{margin:0 0 4px;font-size:22px;}
-header p{margin:0;font-size:13px;}
-.card,.panel,.section,.result,.order{padding:14px;margin-bottom:12px;}
-.grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
-label { font-weight:700; font-size:12px; letter-spacing:.4px; text-transform:uppercase; }
-select,input { padding:13px 12px; font-size:16px; }
-.criteria { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; }
-.criterion { padding:14px; }
-.criterion select { padding:10px; font-size:14px; }
-button{padding:9px 14px;font-size:14px;}
-.product{padding:10px 0;}
-.product h3{margin:0 0 5px;font-size:18px;}
-.product p{margin:2px 0;font-size:13px;}
-.result-title{margin:0 0 8px;font-size:17px;}
-.hidden{display:none!important;}
-@media(max-width:700px){.container{padding:14px 10px}.grid,.criteria{grid-template-columns:1fr}.card,.panel,.section,.result,.order{padding:11px;margin-bottom:8px}}
+/* ЦВЕТА */
+:root {
+  --ink: #191919;
+  --muted: #6a6a6a;
+  --line: #dedede;
+  --orange: #f5793d;
+  --orange-dark: #d95d26;
+  --pale: #f5f5f3;
+  --paper: #fff;
+  --black: #151515;
+}
+* { box-sizing: border-box; }
+/* ВНЕШНИЙ ВИД CSS */
+body {
+  margin: 0;
+  background: #f2f2f0;
+  color: var(--ink);
+  font: 14px/1.45 Arial, Helvetica, sans-serif;
+}
 
+.top {
+  color: #fff;
+  padding: 0 20px 20px;
+  background: #151515;
+  border-bottom: 5px solid var(--orange);
+}
+
+.wrap, .container {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.nav {
+  min-height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 1px solid #555;
+}
+
+.brand {
+  display: flex;
+  gap: 13px;
+  align-items: center;
+  font-weight: 800;
+  font-size: 25px;
+  letter-spacing: 2px;
+}
+
+.top p {
+    max-width: none;
+    margin: 21px auto 0;
+    text-align: center;
+    font-size: 21px;
+    line-height: 1.12;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+    white-space: nowrap;
+}
+
+main { padding: 30px 20px 54px; }
+
+header { padding: 14px 0 18px; }
+header h1 { margin: 0 0 4px; font-size: 22px; }
+header p { margin: 0; font-size: 13px; }
+
+.card, .panel, .section, .result, .order {
+  background: var(--paper);
+  padding: 20px;
+  margin-bottom: 12px;
+}
+
+h2 {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 20px;
+  margin: 0 0 22px;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+h2::before {
+  content: '';
+  display: block;
+  width: 5px;
+  height: 24px;
+  background: var(--orange);
+}
+
+h3 {
+  font-size: 16px;
+  margin: 0 0 10px;
+  text-transform: uppercase;
+  letter-spacing: .3px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+label {
+  display: block;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .4px;
+  text-transform: uppercase;
+}
+
+select, input {
+  margin-top: 7px;
+  width: 100%;
+  appearance: auto;
+  border: 1px solid #c9c9c9;
+  border-radius: 0;
+  padding: 13px 12px;
+  font: 16px Arial, sans-serif;
+  background: #fff;
+  color: var(--ink);
+}
+
+input:focus, select:focus {
+  outline: 3px solid #f5793d44;
+  border-color: var(--orange);
+}
+
+.criteria {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+.criterion {
+  padding: 14px;
+  background: var(--pale);
+  border-top: 3px solid var(--orange);
+}
+
+.criterion label { font-size: 11px; }
+.criterion select { padding: 10px; font-size: 14px; }
+
+button {
+  border: 0;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 12px 18px;
+  background: var(--orange);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+}
+
+button:hover { background: var(--orange-dark); }
+.calculate-button { width: 100%; margin-top: 22px; }
+.hidden { display: none !important; }
+
+.summary {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  padding: 13px 20px;
+  background: var(--black);
+  color: #fff;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.summary b { color: var(--orange); font-size: 18px; }
+
+.columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.result-box {
+  overflow: hidden;
+}
+
+.result-box h3 {
+  padding: 14px 14px;
+  background: var(--black);
+  color: #fff;
+  margin:;
+}
+
+.item, .product {
+  position: relative;
+  padding: 14px 0 14px 38px;
+  border-top: 1px solid var(--line);
+}
+
+.item strong, .product h3 {
+  display: block;
+  font-size: 20px;
+  margin: 0 0 0px;
+}
+
+.product p, .note {
+  margin: 2px 0;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.pack {
+  margin-top: 0px;
+  color: var(--orange-dark);
+  font-weight: 800;
+}
+
+.empty { color: var(--muted); font-style: italic; }
+
+.footnote {
+  border-left: 3px solid var(--orange);
+  padding-left: 12px;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 18px 0 0;
+}
+
+.select-product {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: 0;
+  cursor: pointer;
+}
+
+.select-product input {
+  appearance: none;
+  display: block;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #aaa;
+  background: #fff;
+  cursor: pointer;
+}
+
+.select-product input:checked {
+  border-color: var(--orange);
+  background: var(--orange);
+}
+
+.select-product input:checked::after {
+  content: '✓';
+  display: block;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: center;
+  line-height: 18px;
+}
+
+.order-block {
+  margin-top: 28px;
+  padding: 24px;
+  background: var(--pale);
+  border-top: 4px solid var(--orange);
+}
+
+.order-block h3 { margin-bottom: 18px;
+                 text-align: center;
+                 font-size: 18px; }
+.order-grid { display: grid;
+             grid-template-columns: 1fr;
+             gap: 16px; }
+.order-block label { text-align: center; }
+
+textarea {
+  width: 100%;
+  min-height: 166px;
+  margin-top: 7px;
+  resize: vertical;
+  border: 1px solid #c9c9c9;
+  border-radius: 0;
+  padding: 13px;
+  font: 14px/1.5 Arial, sans-serif;
+  color: var(--ink);
+  background: #fff;
+}
+
+.copy-button { display: block; margin: 15px auto 0; }
+
+@media (max-width: 720px) {
+  .grid, .criteria, .columns { grid-template-columns: 1fr; }
+  .nav { min-height: 70px; }
+  .top p { margin-top: 36px; font-size: 23px; }
+  main { padding: 20px 10px 40px; }
+  .container { padding: 14px 10px; }
+  .card, .panel, .section, .result, .order { padding: 11px; margin-bottom: 8px; }
+}
 </style>
 </head>
 <body>
@@ -299,11 +373,9 @@ button{padding:9px 14px;font-size:14px;}
   </main>
 <script>
 (() => {
-  // =========================
-  // ДАННЫЕ КАЛЬКУЛЯТОРА / МАТРИЦЫ
-  // =========================
 
-  // 1. Матрица критериев: какое покрытие -> какие критерии показываем.
+// МАТРИЦЫ ДЛЯ ПОДБОРА
+// КРИТЕРИИ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПОКРЫТИЯ
   const criteriaMatrix = {
     spc:['base-type','base-prep','surface','warm-floor','wet-zone'],
     lvt:['base-type','base-prep','surface','warm-floor','wet-zone'],
@@ -311,7 +383,7 @@ button{padding:9px 14px;font-size:14px;}
     parquet:['base-prep','warm-floor','glue-to'],
     plywood:['base-prep']
   };
-
+// ВИДЫ КРИТЕРИЕВ 
   const criteria = {
     'base-type': {
       name:'Тип основания',
@@ -364,8 +436,7 @@ button{padding:9px 14px;font-size:14px;}
     }
   };
 
-  // 2. Единый каталог продуктов.
-  // Все условия, тара и расход хранятся внутри карточки продукта.
+  // КАТАЛОГ ПРОДУКЦИИ И УСЛОВИЙ ПРИМЕНЕНИЯ
   const products = [
     {
       id: 'primer-pu-150-speed', type: 'primer', name: 'Primer PU 150 Speed', packs: [5],
@@ -428,7 +499,7 @@ button{padding:9px 14px;font-size:14px;}
       consumption: { 'parquet|under-200': 1200, plywood: 1000 }
     }
   ];
-
+// ЛОГИКА ВЫБОРА И ВЫВОДА КРИТЕРИЕВ
   const $ = id => document.getElementById(id);
   const fmt = n => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(n);
   const chosenProducts = new Set();
@@ -455,7 +526,7 @@ button{padding:9px 14px;font-size:14px;}
         </div>`);
     });
   }
-
+// РАСЧЁТ ТАРЫ
   function packPlan(required, packs) {
     const big = Math.max(...packs);
     const small = packs.filter(size => size < big).sort((a, b) => b - a)[0];
@@ -474,28 +545,28 @@ button{padding:9px 14px;font-size:14px;}
     if (bigCount) plan.unshift({ size: big, count: bigCount });
     return plan;
   }
-
+// ПОЛУЧЕНИЕ ОТВЕТОВ КЛИЕНТА
   function getAnswers() {
     return Object.fromEntries(
       [...document.querySelectorAll('[data-criterion]')]
         .map(element => [element.dataset.criterion, element.value])
     );
   }
-
+// ПРОВЕРКА ТРЕБОВАНИЙ ПРОДУКТА
   function matchesRequires(product, answers) {
     return Object.entries(product.requires || {}).every(([criterionId, allowed]) => {
       if (!(criterionId in answers)) return true;
       return (Array.isArray(allowed) ? allowed : [allowed]).includes(answers[criterionId]);
     });
   }
-
+// ПОДБОР ПОДХОДЯЩИХ ПРОДУКТОВ
   function getSuitableProducts(cover, answers) {
     return products.filter(product => {
       if (product.type === 'adhesive' && !product.covers.includes(cover)) return false;
       return matchesRequires(product, answers);
     });
   }
-
+// РАСЧЁТ КОНКРЕТНОГО ПРОДУКТА И ТАРЫ
   function calculateProduct(product, required, unit) {
     const plan = packPlan(required, product.packs);
     return {
@@ -504,7 +575,7 @@ button{padding:9px 14px;font-size:14px;}
       total: plan.reduce((sum, item) => sum + item.size * item.count, 0)
     };
   }
-
+// ВЫВОД КАРТОЧКИ ПРОДУКТА
   function renderProduct(product, required, unit) {
     const id = `${product.type}:${product.id}`;
     const result = calculateProduct(product, required, unit);
@@ -521,7 +592,7 @@ button{padding:9px 14px;font-size:14px;}
         </div>
       </div>`;
   }
-
+// ФОРМИРОВАНИЕ ТЕКСТА ЗАКАЗА
   function updateOrderText() {
     const legalEntity = $('legalEntity').value.trim() || 'не указано';
     const items = [...chosenProducts].map(id => orderItems[id]).filter(Boolean);
@@ -530,7 +601,7 @@ button{padding:9px 14px;font-size:14px;}
       ? `Заказ от: ${legalEntity}\n\nТовар\n${lines}`
       : `Заказ от: ${legalEntity}\n\nТовар`;
   }
-
+// РАСЧЁТ КАЛЬКУЛЯТОРА
   function calculate(showErrors = false) {
     const cover = $('covering').value;
     const area = parseFloat($('area').value);
