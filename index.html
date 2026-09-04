@@ -1,61 +1,53 @@
 <!doctype html>
 <html lang="ru">
+<!--CSS-->
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Калькулятор подбора грунта и клея</title>
   <style>
-/* ЦВЕТА */
-:root {
-  --ink: #191919;
-  --muted: #6a6a6a;
-  --line: #dedede;
-  --orange: #f5793d;
-  --orange-dark: #d95d26;
-  --pale: #f5f5f3;
-  --paper: #fff;
-  --black: #151515;
-}
-* { box-sizing: border-box; }
-/* ВНЕШНИЙ ВИД CSS */
-body {
-  margin: 0;
-  background: #f2f2f0;
-  color: var(--ink);
-  font: 14px/1.45 Arial, Helvetica, sans-serif;
-}
-
-.top {
-  color: #fff;
-  padding: 0 20px 20px;
-  background: #151515;
-  border-bottom: 5px solid var(--orange);
-}
-
-.wrap, .container {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-.nav {
-  min-height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #555;
-}
-
-.brand {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-  font-weight: 800;
-  font-size: 25px;
-  letter-spacing: 2px;
-}
-
-.top p {
-    max-width: none;
+  :root {
+    --ink: #191919;
+    --muted: #6a6a6a;
+    --line: #dedede;
+    --orange: #f5793d;
+    --orange-dark: #d95d26;
+    --pale: #f5f5f3;
+    --paper: #fff;
+    --black: #151515;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: #f2f2f0;
+    color: var(--ink);
+    font: 14px/1.45 Arial, Helvetica, sans-serif;
+  }
+  .top {
+    color: #fff;
+    padding: 0 20px 20px;
+    background: #151515;
+    border-bottom: 5px solid var(--orange);
+  }
+  .wrap {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .nav {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #555;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    font-weight: 800;
+    font-size: 25px;
+    letter-spacing: 2px;
+  }
+  .top p {
     margin: 21px auto 0;
     text-align: center;
     font-size: 21px;
@@ -64,263 +56,227 @@ body {
     text-transform: uppercase;
     letter-spacing: .3px;
     white-space: nowrap;
-}
-
-main { padding: 30px 20px 54px; }
-
-header { padding: 14px 0 18px; }
-header h1 { margin: 0 0 4px; font-size: 22px; }
-header p { margin: 0; font-size: 13px; }
-
-.card, .panel, .section, .result, .order {
-  background: var(--paper);
-  padding: 20px;
-  margin-bottom: 12px;
-}
-
-h2 {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 20px;
-  margin: 0 0 22px;
-  text-transform: uppercase;
-  letter-spacing: .5px;
-}
-
-h2::before {
-  content: '';
-  display: block;
-  width: 5px;
-  height: 24px;
-  background: var(--orange);
-}
-
-h3 {
-  font-size: 16px;
-  margin: 0 0 10px;
-  text-transform: uppercase;
-  letter-spacing: .3px;
-}
-
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-label {
-  display: block;
-  font-weight: 700;
-  font-size: 12px;
-  letter-spacing: .4px;
-  text-transform: uppercase;
-}
-
-select, input {
-  margin-top: 7px;
-  width: 100%;
-  appearance: auto;
-  border: 1px solid #c9c9c9;
-  border-radius: 0;
-  padding: 13px 12px;
-  font: 16px Arial, sans-serif;
-  background: #fff;
-  color: var(--ink);
-}
-
-input:focus, select:focus {
-  outline: 3px solid #f5793d44;
-  border-color: var(--orange);
-}
-
-.criteria {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-}
-
-.criterion {
-  padding: 14px;
+  }
+  main { padding: 30px 20px 54px; }
+  .card {
+    background: var(--paper);
+    padding: 20px;
+    margin-bottom: 12px;
+  }
+  h2 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 20px;
+    margin: 0 0 22px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+  }
+  h2::before {
+    content: '';
+    display: block;
+    width: 5px;
+    height: 24px;
+    background: var(--orange);
+  }
+  h3 {
+    font-size: 16px;
+    margin: 0 0 10px;
+    text-transform: uppercase;
+    letter-spacing: .3px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: .4px;
+    text-transform: uppercase;
+  }
+  select, input {
+    margin-top: 7px;
+    width: 100%;
+    appearance: auto;
+    border: 1px solid #c9c9c9;
+    border-radius: 0;
+    padding: 13px 12px;
+    font: 16px Arial, sans-serif;
+    background: #fff;
+    color: var(--ink);
+  }
+  input:focus, select:focus {
+    outline: 3px solid #f5793d44;
+    border-color: var(--orange);
+  }
+  .criteria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+  }
+  .criterion {
+    padding: 14px;
+    background: var(--pale);
+    border-top: 3px solid var(--orange);
+  }
+  .criterion label { font-size: 11px; }
+  .criterion select { padding: 10px; font-size: 14px; }
+  button {
+    border: 0;
+    cursor: pointer;
+    border-radius: 0;
+    padding: 12px 18px;
+    background: var(--orange);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 800;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+  }
+  button:hover { background: var(--orange-dark); }
+  .calculate-button { width: 100%; margin-top: 22px; }
+  .hidden { display: none !important; }
+  .summary b { color: var(--orange); font-size: 18px; }
+  .columns {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+  .result-box {
+    overflow: hidden;
+  }
+  .result-box h3 {
+    padding: 14px;
+    background: var(--black);
+    color: #fff;
+    margin: 0;
+  }
+  .item {
+    position: relative;
+    padding: 14px 0 14px 38px;
+    border-top: 1px solid var(--line);
+  }
+  .item strong {
+    display: block;
+    font-size: 20px;
+    margin: 0;
+  }
+  .note {
+    margin: 2px 0;
+    font-size: 13px;
+    color: var(--muted);
+  }
+  .pack {
+    margin-top: 0px;
+    color: var(--orange-dark);
+    font-weight: 800;
+  }
+  .empty { color: var(--muted); font-style: italic; }
+  .consumption-note {
+  margin: 10px 0 0;
+  padding: 10px 12px;
   background: var(--pale);
-  border-top: 3px solid var(--orange);
-}
-
-.criterion label { font-size: 11px; }
-.criterion select { padding: 10px; font-size: 14px; }
-
-button {
-  border: 0;
-  cursor: pointer;
-  border-radius: 0;
-  padding: 12px 18px;
-  background: var(--orange);
-  color: #fff;
-  font-size: 14px;
-  font-weight: 800;
-  letter-spacing: .6px;
-  text-transform: uppercase;
-}
-
-button:hover { background: var(--orange-dark); }
-.calculate-button { width: 100%; margin-top: 22px; }
-.hidden { display: none !important; }
-
-.summary {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-  padding: 13px 20px;
-  background: var(--black);
-  color: #fff;
-  margin-bottom: 18px;
-  font-size: 14px;
-}
-
-.summary b { color: var(--orange); font-size: 18px; }
-
-.columns {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.result-box {
-  overflow: hidden;
-}
-
-.result-box h3 {
-  padding: 14px 14px;
-  background: var(--black);
-  color: #fff;
-  margin:;
-}
-
-.item, .product {
-  position: relative;
-  padding: 14px 0 14px 38px;
-  border-top: 1px solid var(--line);
-}
-
-.item strong, .product h3 {
-  display: block;
-  font-size: 20px;
-  margin: 0 0 0px;
-}
-
-.product p, .note {
-  margin: 2px 0;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.pack {
-  margin-top: 0px;
-  color: var(--orange-dark);
-  font-weight: 800;
-}
-
-.empty { color: var(--muted); font-style: italic; }
-
-.footnote {
   border-left: 3px solid var(--orange);
-  padding-left: 12px;
   color: var(--muted);
   font-size: 13px;
-  margin: 18px 0 0;
-}
-
-.select-product {
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0;
-  cursor: pointer;
-}
-
-.select-product input {
-  appearance: none;
-  display: block;
-  width: 20px;
-  height: 20px;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #aaa;
-  background: #fff;
-  cursor: pointer;
-}
-
-.select-product input:checked {
-  border-color: var(--orange);
-  background: var(--orange);
-}
-
-.select-product input:checked::after {
-  content: '✓';
-  display: block;
-  color: #fff;
-  font-size: 16px;
-  font-weight: 800;
-  text-align: center;
-  line-height: 18px;
-}
-
-.order-block {
-  margin-top: 28px;
-  padding: 24px;
-  background: var(--pale);
-  border-top: 4px solid var(--orange);
-}
-
-.order-block h3 { margin-bottom: 18px;
-                 text-align: center;
-                 font-size: 18px; }
-.order-grid { display: grid;
-             grid-template-columns: 1fr;
-             gap: 16px; }
-.order-block label { text-align: center; }
-
-textarea {
-  width: 100%;
-  min-height: 166px;
-  margin-top: 7px;
-  resize: vertical;
-  border: 1px solid #c9c9c9;
-  border-radius: 0;
-  padding: 13px;
-  font: 14px/1.5 Arial, sans-serif;
-  color: var(--ink);
-  background: #fff;
-}
-
-.copy-button { display: block; margin: 15px auto 0; }
-
-@media (max-width: 720px) {
-  .grid, .criteria, .columns { grid-template-columns: 1fr; }
-  .nav { min-height: 70px; }
-  .top p { margin-top: 36px; font-size: 23px; }
-  main { padding: 20px 10px 40px; }
-  .container { padding: 14px 10px; }
-  .card, .panel, .section, .result, .order { padding: 11px; margin-bottom: 8px; }
-}
-</style>
+  line-height: 1.5;
+  }
+  .footnote {
+    border-left: 3px solid var(--orange);
+    padding-left: 12px;
+    color: var(--muted);
+    font-size: 13px;
+    margin: 18px 0 0;
+  }
+  .select-product {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    cursor: pointer;
+  }
+  .select-product input {
+    appearance: none;
+    display: block;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #aaa;
+    background: #fff;
+    cursor: pointer;
+  }
+  .select-product input:checked {
+    border-color: var(--orange);
+    background: var(--orange);
+  }
+  .select-product input:checked::after {
+    content: '✓';
+    display: block;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 800;
+    text-align: center;
+    line-height: 18px;
+  }
+  .order-block {
+    margin-top: 28px;
+    padding: 24px;
+    background: var(--pale);
+    border-top: 4px solid var(--orange);
+  }
+  .order-block h3 { margin-bottom: 18px;
+                   text-align: center;
+                   font-size: 18px; }
+  .order-grid { display: grid;
+               grid-template-columns: 1fr;
+               gap: 16px; }
+  .order-block label { text-align: center; }
+  textarea {
+    width: 100%;
+    min-height: 166px;
+    margin-top: 7px;
+    resize: vertical;
+    border: 1px solid #c9c9c9;
+    border-radius: 0;
+    padding: 13px;
+    font: 14px/1.5 Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+  }
+  .copy-button { display: block; margin: 15px auto 0; }
+  @media (max-width: 720px) {
+    .grid, .criteria, .columns { grid-template-columns: 1fr; }
+    .nav { min-height: 70px; }
+    .top p { margin-top: 36px; font-size: 23px; }
+    main { padding: 20px 10px 40px; }
+    .card {
+      padding: 11px;
+      margin-bottom: 8px;
+    }
+  }
+  </style>
 </head>
+<!--HTML-->
 <body>
   <header class="top">
     <div class="wrap">
       <div class="nav">
         <div class="brand">КЛЕЙПРОМ</div>
       </div>
-      <p>Калькулятор подбора<br>клея и грунта</p>
+      <p>Калькулятор подбора клея и грунта</p>
     </div>
   </header>
   <main class="wrap">
     <section class="card">
       <h2>Параметры объекта</h2>
       <div class="grid">
-        <label>Тип покрытия<select id="covering">
+        <label>Тип покрытия
+          <select id="covering">
           <option value="">Выберите покрытие</option>
           <option value="spc">SPC</option>
           <option value="lvt">LVT</option>
@@ -328,13 +284,8 @@ textarea {
           <option value="parquet">Паркет</option>
           <option value="plywood">Фанера</option>
         </select></label>
-        <label>Площадь, м²<input id="area" type="number" min="0" step="0.1" placeholder="Например, 50">
-        </label>
-        <label id="parquetSize" class="hidden">Ширина паркета<select id="parquet">
-          <option value="">Выберите размер</option>
-          <option value="under-200">До 200 мм</option>
-          <option value="over-200">Более 200 мм</option>
-        </select>
+        <label>Площадь, м²
+          <input id="area" type="number" min="0" step="0.1" placeholder="Например, 50">
         </label>
       </div>
     </section>
@@ -348,17 +299,18 @@ textarea {
       <h2>Результат</h2>
       <div class="columns">
         <div class="result-box">
-          <h3>Подходящие грунты</h3>
-          <div id="primers">
-          </div>
+          <h3>Подходящий грунт</h3>
+          <div id="primers"></div>
+          <div id="primerConsumption" class="consumption-note hidden"></div>
         </div>
         <div class="result-box">
-          <h3>Подходящие клеи</h3>
+          <h3>Подходящий клей</h3>
           <div id="adhesives">
+          <div id="adhesiveConsumption" class="consumption-note hidden"></div>
           </div>
         </div>
       </div>
-      <p class="footnote">Расход грунта: 120 г/м². Тара клея рассчитана по правилу: полные большие упаковки, затем при остатке больше 80% большой - ещё большая; при остатке не более 80% - малая. Если малой упаковки нет, добавляется большая.</p>
+      <p class="footnote">Тара клея рассчитана по правилу: полные большие упаковки, затем при остатке больше 80% большой - ещё большая; при остатке не более 80% - малая. Если малой упаковки нет, добавляется большая.</p>
       <div class="order-block">
         <h3>Ваш заказ</h3>
         <div class="order-grid">
@@ -371,20 +323,22 @@ textarea {
       </div>
     </section>
   </main>
-<script>
-(() => {
-
-// МАТРИЦЫ ДЛЯ ПОДБОРА
-// КРИТЕРИИ В ЗАВИСИМОСТИ ОТ ВЫБРАННОГО ПОКРЫТИЯ
-  const criteriaMatrix = {
+<!--JS-->
+<script>(() => {
+  const $ = id => document.getElementById(id);
+  const fmt = value => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(value);
+  const chosenProducts = new Set();
+  let orderItems = {};
+// КРИТЕРИИ В ЗАВИСИМОСТИ ОТ ПОКРЫТИЯ
+const criteriaMatrix = {
     spc:['base-type','base-prep','surface','warm-floor','wet-zone'],
     lvt:['base-type','base-prep','surface','warm-floor','wet-zone'],
     pvc:['base-type','base-prep','surface','warm-floor','wet-zone','pvc-type'],
-    parquet:['base-prep','warm-floor','glue-to'],
+    parquet:['base-prep','warm-floor','glue-to','parquet-size'],
     plywood:['base-prep']
-  };
+};
 // ВИДЫ КРИТЕРИЕВ 
-  const criteria = {
+const criteria = {
     'base-type': {
       name:'Тип основания',
       options:[
@@ -433,101 +387,201 @@ textarea {
         {id:'screed', name:'На стяжку'},
         {id:'plywood', name:'На фанеру'}
       ]
+    },
+    'parquet-size': {
+      name:'Ширина паркета',
+      options:[
+        {id:'under-200', name:'Менее 200 мм'},
+        {id:'over-200', name:'Более 200 мм'}
+      ]
     }
-  };
-
-  // КАТАЛОГ ПРОДУКЦИИ И УСЛОВИЙ ПРИМЕНЕНИЯ
-  const products = [
-    {
-      id: 'primer-pu-150-speed', type: 'primer', name: 'Primer PU 150 Speed', packs: [5],
-      requires: { 'base-prep': ['strengthen-dedust'] }, consumption: { all: 120 }
+};
+// КАТАЛОГ ПРОДУКЦИИ И УСЛОВИЙ ПРИМЕНЕНИЯ
+const products = [
+  // ГРУНТЫ
+    {id: 'primer-pu-150-speed',
+      type: 'primer',
+      name: 'Primer PU 150 Speed',
+      packs: [5],
+      requires: {'base-prep': ['strengthen-dedust']},
+      consumption: {all: 120}
+    },
+    {id: 'primer-d-plus',
+      type: 'primer',
+      name: 'Primer D Plus',
+      packs: [5],
+      requires: {'base-prep': ['dedust']},
+      consumption: {all: 120}
+    },
+    {id: 'primer-pu-antidust',
+      type: 'primer',
+      name: 'Pu Primer AntiDust',
+      packs: [5],
+      requires: {'base-prep': ['strengthen-dedust']},
+      consumption: {all: 120}
+    },
+    {id: 'pu-primer-sf',
+      type: 'primer',
+      name: 'PU Primer SF',
+      packs: [5],
+      requires: {'base-prep': ['strengthen-dedust']},
+      consumption: {all: 120}
     },
     {
-      id: 'primer-d-plus', type: 'primer', name: 'Primer D Plus', packs: [5],
-      requires: { 'base-prep': ['dedust'] }, consumption: { all: 120 }
+      id: 'u-primer-150',
+      type: 'primer',
+      name: 'U-Primer 150',
+      packs: [5],
+      requires: {
+        'base-prep': ['strengthen-dedust']
+      },
+      consumption: {
+        all: 120
+      }
     },
-    {
-      id: 'primer-pu-antidust', type: 'primer', name: 'Pu Primer AntiDust', packs: [5],
-      requires: { 'base-prep': ['strengthen-dedust'] }, consumption: { all: 120 }
+  // КЛЕЙ ДЛЯ LVT / ПВХ
+    {id: 'hycol-kd-fiber',
+      type: 'adhesive',
+      name: 'Hycol KD Fiber',
+      covers: ['lvt', 'pvc'],
+      packs: [5, 18],
+      requires: {
+        'base-type': ['absorbent'],
+        'base-prep': ['dedust'],
+        surface: ['floor'],
+        'wet-zone': ['no'],
+        'pvc-type': ['roll', 'tile']
+      },
+      consumption: {lvt: 320,pvc: 320}
     },
-    {
-      id: 'pu-primer-sf', type: 'primer', name: 'PU Primer SF', packs: [5],
-      requires: { 'base-prep': ['strengthen-dedust'] }, consumption: { all: 120 }
+    {id: 'hykostik-fiber',
+      type: 'adhesive',
+      name: 'Hycostik Fiber',
+      covers: ['lvt', 'pvc'],
+      packs: [5, 18],
+      requires: {
+        'base-type': ['absorbent'],
+        'base-prep': ['dedust'],
+        surface: ['floor'],
+        'wet-zone': ['no'],
+        'pvc-type': ['tile']
+      },
+      consumption: {lvt: 320,pvc: 320 }
     },
-    {
-      id: 'u-primer-150', type: 'primer', name: 'U-Primer 150', packs: [5],
-      requires: { 'base-prep': ['strengthen-dedust'] }, consumption: { all: 120 }
+  // КЛЕЙ ДЛЯ SPC / LVT / ПВХ
+    {id: 'gommapur',
+      type: 'adhesive',
+      name: 'Gommapur',
+      covers: ['spc', 'lvt', 'pvc'],
+      packs: [10],
+      requires: {
+        surface: ['floor'],
+        'wet-zone': ['no', 'yes'],
+        'pvc-type': ['tile']
+      },
+      consumption: {spc: 600,lvt: 320,pvc: 320}
     },
-    {
-      id: 'hycol-kd-fiber', type: 'adhesive', name: 'Hycol KD Fiber', covers: ['lvt', 'pvc'], packs: [5, 18],
-      requires: { 'base-type': ['absorbent'], 'base-prep': ['dedust'], surface: ['floor'], 'wet-zone': ['no', 'yes'], 'pvc-type': ['roll', 'tile'] },
-      consumption: { lvt: 320, pvc: 320 }
+    {id: 'poliflex-spc',
+      type: 'adhesive',
+      name: 'Poliflex SPC',
+      covers: ['spc', 'lvt', 'pvc'],
+      packs: [5, 15],
+      requires: {
+        surface: ['floor', 'walls'],
+        'wet-zone': ['no', 'yes'],
+        'pvc-type': ['tile']
+      },
+      consumption: {spc: 600,lvt: 320,pvc: 320}
     },
-    {
-      id: 'hykostik-fiber', type: 'adhesive', name: 'Hycostik Fiber', covers: ['lvt', 'pvc'], packs: [5, 18],
-      requires: { 'base-type': ['absorbent'], 'base-prep': ['dedust'], surface: ['floor'], 'wet-zone': ['no'], 'pvc-type': ['tile'] },
-      consumption: { lvt: 320, pvc: 320 }
+  // КЛЕЙ ДЛЯ ПАРКЕТА / ФАНЕРЫ
+    {id: 'bona-r-820',
+      type: 'adhesive',
+      name: 'Bona R-820',
+      covers: ['parquet', 'plywood'],
+      packs: [15],
+      requires: {
+        'parquet-size': ['under-200', 'over-200']
+      },
+      consumption: {
+        parquet: {
+          'under-200': 1200,
+          'over-200': 1500
+        },plywood: 1000
+      }
     },
-    {
-      id: 'gommapur', type: 'adhesive', name: 'Gommapur', covers: ['spc', 'lvt', 'pvc'], packs: [10],
-      requires: { surface: ['floor'], 'wet-zone': ['no', 'yes'], 'pvc-type': ['tile'] },
-      consumption: { spc: 600, lvt: 320, pvc: 320 }
+    {id: 's-bond-flex',
+      type: 'adhesive',
+      name: 'S-bond flex',
+      covers: ['parquet', 'plywood'],
+      packs: [14],
+      requires: {
+        'parquet-size': ['under-200']
+      },
+      consumption: {
+        parquet: {
+          'under-200': 1200
+        },
+        plywood: 1000
+      }
     },
-    {
-      id: 'poliflex-spc', type: 'adhesive', name: 'Poliflex SPC', covers: ['spc', 'lvt', 'pvc'], packs: [5, 15],
-      requires: { surface: ['floor', 'walls'], 'wet-zone': ['no', 'yes'], 'pvc-type': ['tile'] },
-      consumption: { spc: 600, lvt: 320, pvc: 320 }
+    {id: 'legnopol-4000',
+      type: 'adhesive',
+      name: 'Legnopol 4000',
+      covers: ['parquet', 'plywood'],
+      packs: [10],
+      requires: {
+        'parquet-size': ['under-200', 'over-200']
+      },
+      consumption: {
+        parquet: {
+          'under-200': 1200,
+          'over-200': 1500
+        },
+        plywood: 1000
+      }
     },
-    {
-      id: 'bona-r-820', type: 'adhesive', name: 'Bona R-820', covers: ['parquet', 'plywood'], packs: [15],
-      requires: { 'parquet-size': ['under-200', 'over-200'] },
-      consumption: { 'parquet|under-200': 1200, 'parquet|over-200': 1500, plywood: 1000 }
-    },
-    {
-      id: 's-bond-flex', type: 'adhesive', name: 'S-bond flex', covers: ['parquet', 'plywood'], packs: [14],
-      requires: { 'parquet-size': ['under-200'] },
-      consumption: { 'parquet|under-200': 1200, plywood: 1000 }
-    },
-    {
-      id: 'legnopol-4000', type: 'adhesive', name: 'Legnopol 4000', covers: ['parquet', 'plywood'], packs: [10],
-      requires: { 'parquet-size': ['under-200', 'over-200'] },
-      consumption: { 'parquet|under-200': 1200, 'parquet|over-200': 1500, plywood: 1000 }
-    },
-    {
-      id: 'izopur-2k', type: 'adhesive', name: 'IZOPUR 2K', covers: ['parquet', 'plywood'], packs: [10],
-      requires: { 'parquet-size': ['under-200'] },
-      consumption: { 'parquet|under-200': 1200, plywood: 1000 }
+    {id: 'izopur-2k',
+      type: 'adhesive',
+      name: 'IZOPUR 2K',
+      covers: ['parquet', 'plywood'],
+      packs: [10],
+      requires: {
+        'parquet-size': ['under-200']
+      },
+      consumption: {
+        parquet: {
+          'under-200': 1200
+        },
+        plywood: 1000
+      }
     }
-  ];
-// ЛОГИКА ВЫБОРА И ВЫВОДА КРИТЕРИЕВ
-  const $ = id => document.getElementById(id);
-  const fmt = n => new Intl.NumberFormat('ru-RU', { maximumFractionDigits: 1 }).format(n);
-  const chosenProducts = new Set();
-  let orderItems = {};
-
-  function drawCriteria() {
+];
+// ВЫВОД КРИТЕРИЕВ ПО ПОКРЫТИЮ
+function drawCriteria() {
     const cover = $('covering').value;
     const host = $('criteria');
     host.innerHTML = '';
-    $('parquetSize').classList.toggle('hidden', cover !== 'parquet');
     $('criteriaCard').classList.toggle('hidden', !cover);
-
     (criteriaMatrix[cover] || []).forEach(criterionId => {
       const criterion = criteria[criterionId];
+      if (!criterion) return;
       const options = criterion.options
         .map(option => `<option value="${option.id}">${option.name}</option>`)
         .join('');
-
       host.insertAdjacentHTML('beforeend', `
         <div class="criterion">
           <label>${criterion.name}
-            <select data-criterion="${criterionId}">${options}</select>
+            <select data-criterion="${criterionId}">
+              <option value="">Выберите вариант</option>
+              ${options}
+            </select>
           </label>
-        </div>`);
+        </div>
+      `);
     });
-  }
+}
 // РАСЧЁТ ТАРЫ
-  function packPlan(required, packs) {
+function packPlan(required, packs) {
     const big = Math.max(...packs);
     const small = packs.filter(size => size < big).sort((a, b) => b - a)[0];
     let bigCount = Math.floor(required / big);
@@ -544,138 +598,173 @@ textarea {
 
     if (bigCount) plan.unshift({ size: big, count: bigCount });
     return plan;
-  }
+}
 // ПОЛУЧЕНИЕ ОТВЕТОВ КЛИЕНТА
-  function getAnswers() {
-    return Object.fromEntries(
-      [...document.querySelectorAll('[data-criterion]')]
-        .map(element => [element.dataset.criterion, element.value])
-    );
-  }
+function getAnswers() {
+  return Object.fromEntries(
+    [...document.querySelectorAll('[data-criterion]')]
+      .map(element => [element.dataset.criterion, element.value])
+  );
+}
 // ПРОВЕРКА ТРЕБОВАНИЙ ПРОДУКТА
-  function matchesRequires(product, answers) {
-    return Object.entries(product.requires || {}).every(([criterionId, allowed]) => {
-      if (!(criterionId in answers)) return true;
-      return (Array.isArray(allowed) ? allowed : [allowed]).includes(answers[criterionId]);
-    });
-  }
+function matchesRequires(product, answers, cover) {
+  const activeCriteria = new Set(criteriaMatrix[cover] || []);
+  return Object.entries(product.requires || {}).every(([criterionId, allowed]) => {
+    if (!activeCriteria.has(criterionId)) return true;
+    const answer = answers[criterionId];
+    if (!answer) return true;
+    const allowedValues = Array.isArray(allowed)
+      ? allowed
+      : [allowed];
+    return allowedValues.includes(answer);
+  });
+}
 // ПОДБОР ПОДХОДЯЩИХ ПРОДУКТОВ
-  function getSuitableProducts(cover, answers) {
-    return products.filter(product => {
-      if (product.type === 'adhesive' && !product.covers.includes(cover)) return false;
-      return matchesRequires(product, answers);
-    });
+function getSuitableProducts(cover, answers) {
+  return products.filter(product => {
+    if (
+      product.type === 'adhesive' &&
+      !product.covers.includes(cover)
+    ) {
+      return false;
+    }
+    return matchesRequires(product, answers, cover);
+  });
+}
+// ПОЛУЧЕНИЕ РАСХОДА КОНКРЕТНОГО ПРОДУКТА
+function getConsumption(product, cover, answers) {
+  const consumption = product.consumption;
+  if (!consumption) return null;
+  if (product.type === 'adhesive' && cover === 'parquet') {
+    const size = answers['parquet-size'];
+    if (!size) return null;
+    return consumption.parquet?.[size] ?? null;
   }
+  return consumption[cover] ?? consumption.all ?? null;
+}
 // РАСЧЁТ КОНКРЕТНОГО ПРОДУКТА И ТАРЫ
-  function calculateProduct(product, required, unit) {
-    const plan = packPlan(required, product.packs);
-    return {
-      plan,
-      purchase: plan.map(item => `${item.count} × ${item.size} ${unit}`).join(' + '),
-      total: plan.reduce((sum, item) => sum + item.size * item.count, 0)
-    };
+function calculateProduct(product, area, cover, answers, unit) {
+  const consumption = getConsumption(product, cover, answers);
+  if (!Number.isFinite(consumption)) {
+    return null;
   }
+  const required = area * consumption / 1000;
+  const plan = packPlan(required, product.packs);
+  return {
+    consumption,
+    required,
+    plan,
+    purchase: plan
+      .map(item => `${item.count} × ${item.size} ${unit}`)
+      .join(' + '),
+    total: plan.reduce(
+      (sum, item) => sum + item.size * item.count,
+      0
+    )
+  };
+}
 // ВЫВОД КАРТОЧКИ ПРОДУКТА
-  function renderProduct(product, required, unit) {
-    const id = `${product.type}:${product.id}`;
-    const result = calculateProduct(product, required, unit);
-
-    return `
-      <div class="item">
-        <label class="select-product">
-          <input type="checkbox" aria-label="${product.name}" data-product-id="${id}" ${chosenProducts.has(id) ? 'checked' : ''}>
-        </label>
-        <div class="product-info">
-          <strong>${product.name}</strong>
-          <div class="pack">Купить: ${result.purchase}</div>
-          <div class="note">Всего в таре: ${fmt(result.total)} ${unit}</div>
-        </div>
-      </div>`;
-  }
+function renderProduct(product, result, unit) {
+  const id = `${product.type}:${product.id}`;
+  if (!result) return '';
+  return `
+    <div class="item">
+      <label class="select-product">
+        <input
+          type="checkbox"
+          aria-label="${product.name}"
+          data-product-id="${id}"
+          ${chosenProducts.has(id) ? 'checked' : ''}
+        >
+      </label>
+      <div class="product-info">
+        <strong>${product.name}</strong>
+        <div class="pack">Купить: ${result.purchase}</div>
+        <div class="note">Всего в таре: ${fmt(result.total)} ${unit}</div>
+      </div>
+    </div>`;
+}
 // ФОРМИРОВАНИЕ ТЕКСТА ЗАКАЗА
-  function updateOrderText() {
-    const legalEntity = $('legalEntity').value.trim() || 'не указано';
-    const items = [...chosenProducts].map(id => orderItems[id]).filter(Boolean);
-    const lines = items.map(item => `${item.name} — ${item.purchase}`).join('\n');
-    $('orderText').value = items.length
-      ? `Заказ от: ${legalEntity}\n\nТовар\n${lines}`
-      : `Заказ от: ${legalEntity}\n\nТовар`;
-  }
+function updateOrderText() {
+  const legalEntity = $('legalEntity').value.trim() || 'не указано';
+  const items = [...chosenProducts]
+    .map(id => orderItems[id])
+    .filter(Boolean);
+  const lines = items
+    .map(item => `${item.name} — ${item.purchase}`)
+    .join('\n');
+  $('orderText').value = items.length
+    ? `Заказ от: ${legalEntity}\n\nТовар\n${lines}`
+    : `Заказ от: ${legalEntity}\n\nТовар`;
+}
 // РАСЧЁТ КАЛЬКУЛЯТОРА
-  function calculate(showErrors = false) {
-    const cover = $('covering').value;
-    const area = parseFloat($('area').value);
-    const parquetSize = $('parquet').value;
-
-    if (!cover) {
-      if (showErrors) alert('Выберите тип покрытия.');
-      return;
-    }
-
-    if (!(area > 0)) {
-      if (showErrors) alert('Введите площадь больше нуля.');
-      return;
-    }
-
-    if (cover === 'parquet' && !parquetSize) {
-      if (showErrors) alert('Выберите ширину паркета.');
-      return;
-    }
-
-    const consumptionKey = cover === 'parquet' ? `parquet|${parquetSize}` : cover;
-    const answers = getAnswers();
-    const primerRequired = area * 120 / 1000;
-    const suitable = getSuitableProducts(cover, answers);
-    const primers = suitable.filter(product => product.type === 'primer');
-    const adhesives = suitable.filter(product => product.type === 'adhesive');
-    const required = area * (adhesives[0]?.consumption?.[consumptionKey] ?? 0) / 1000;
-
-    if (!adhesives.some(product => Number.isFinite(product.consumption?.[consumptionKey]))) {
-      if (showErrors) alert('Для выбранных условий не задан расход.');
-      return;
-    }
-
-    orderItems = {};
-
-    [...primers, ...adhesives].forEach(product => {
-      const isPrimer = product.type === 'primer';
-      const result = calculateProduct(product, isPrimer ? primerRequired : required, isPrimer ? 'л/кг' : 'кг');
-      orderItems[`${product.type}:${product.id}`] = { name: product.name, purchase: result.purchase };
-    });
-
-    [...chosenProducts].forEach(id => {
-      if (!orderItems[id]) chosenProducts.delete(id);
-    });
-
-    $('primers').innerHTML = primers.length
-      ? primers.map(product => renderProduct(product, primerRequired, 'л/кг')).join('')
-      : '<div class="item empty">Выберите подготовку основания в критериях.</div>';
-
-    $('adhesives').innerHTML = adhesives.length
-      ? adhesives.map(product => renderProduct(product, required, 'кг')).join('')
-      : '<div class="item empty">Подходящие клеи по выбранным условиям не найдены.</div>';
-
-    updateOrderText();
-    $('results').classList.remove('hidden');
+function calculate(showErrors = false) {
+  const cover = $('covering').value;
+  const area = parseFloat($('area').value);
+  const answers = getAnswers();
+  if (!cover) {
+    if (showErrors) alert('Выберите тип покрытия.');
+    return;
   }
-
-  function refresh() { drawCriteria(); calculate(false);}
-  $('covering').addEventListener('change', refresh);
-  $('area').addEventListener('input', () => calculate(false));
-  $('parquet').addEventListener('change', () => calculate(false));
-  document.addEventListener('change', event => { if (event.target.matches('[data-criterion]')) calculate(false);
-                                                if (event.target.matches('[data-product-id]'))
-                                                { const id=event.target.dataset.productId;
-                                                 event.target.checked ? chosenProducts.add(id) : chosenProducts.delete(id); updateOrderText();} });
-  $('legalEntity').addEventListener('input', updateOrderText);
-  $('copyOrder').addEventListener('click', async () => { const text=$('orderText').value;
-                                                        try { await navigator.clipboard.writeText(text);
-                                                             $('copyOrder').textContent='Скопировано'; 
-                                                             setTimeout(()=>{$('copyOrder').textContent='Скопировать заказ';
-                                                                            },1600);
-                                                            } catch { $('orderText').select();
-                                                                     document.execCommand('copy'); } });
-  $('calculate').addEventListener('click', () => calculate(true));
+  if (!(area > 0)) {
+    if (showErrors) alert('Введите площадь больше нуля.');
+    return;
+  }
+  const suitable = getSuitableProducts(cover, answers);
+  const calculateResults = (type, unit) => suitable
+    .filter(product => product.type === type)
+    .map(product => ({ product, result: calculateProduct(product, area, cover, answers, unit) }))
+    .filter(item => item.result);
+  const primerResults = calculateResults('primer', 'л');
+  const adhesiveResults = calculateResults('adhesive', 'кг');
+  orderItems = {};
+  [...primerResults, ...adhesiveResults].forEach(({ product, result }) => {
+    orderItems[`${product.type}:${product.id}`] = { name: product.name, purchase: result.purchase };
+  });
+  [...chosenProducts].forEach(id => {
+    if (!orderItems[id]) chosenProducts.delete(id);
+  });
+  $('primers').innerHTML = primerResults.length
+    ? primerResults.map(({ product, result }) => renderProduct(product, result, 'л/кг')).join('')
+    : '<div class="item empty">Подходящие грунты не найдены.</div>';
+  $('adhesives').innerHTML = adhesiveResults.length
+    ? adhesiveResults.map(({ product, result }) => renderProduct(product, result, 'кг')).join('')
+    : '<div class="item empty">Для расчёта клея выберите необходимые критерии.</div>';
+  updateOrderText();
+  $('results').classList.remove('hidden');
+  if (showErrors && !primerResults.length && !adhesiveResults.length) {
+    alert('По выбранным условиям пока нечего рассчитать. Заполните критерии, которые влияют на нужный продукт.');
+  }
+}
+// МОМЕНТАЛЬНОЕ ОБНОВЛЕНИЕ
+function refresh() {
+  drawCriteria();
+  calculate(false);}
+$('covering').addEventListener('change', refresh);
+$('area').addEventListener('input', () => {calculate(false);});
+document.addEventListener('change', event => {
+  if (event.target.matches('[data-criterion]')) {
+    calculate(false);}
+  if (event.target.matches('[data-product-id]')) {
+    const id = event.target.dataset.productId;
+    if (event.target.checked) {chosenProducts.add(id);} 
+      else {chosenProducts.delete(id);}
+    updateOrderText();}
+});
+$('legalEntity').addEventListener('input', updateOrderText);
+$('copyOrder').addEventListener('click', async () => {
+  const text = $('orderText').value;
+  try {
+    await navigator.clipboard.writeText(text);
+    $('copyOrder').textContent = 'Скопировано';
+    setTimeout(() => {$('copyOrder').textContent = 'Скопировать заказ';}, 1600);} 
+    catch {$('orderText').select();
+    document.execCommand('copy');
+  }
+});
+$('calculate').addEventListener('click', () => {
+  calculate(true);
+});
 })();
 </script>
 </body></html>
