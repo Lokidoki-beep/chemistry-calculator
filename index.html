@@ -278,7 +278,7 @@
         <label>Тип покрытия
           <select id="covering">
           <option value="">Выберите покрытие</option>
-          <option value="spc">SPC</option>
+          <option value="spc">SPC/MSPC</option>
           <option value="lvt">LVT</option>
           <option value="pvc">ПВХ</option>
           <option value="parquet">Паркет</option>
@@ -725,7 +725,7 @@ function calculate(showErrors = false) {
     if (!orderItems[id]) chosenProducts.delete(id);
   });
   $('primers').innerHTML = primerResults.length
-    ? primerResults.map(({ product, result }) => renderProduct(product, result, 'л/кг')).join('')
+    ? primerResults.map(({ product, result }) => renderProduct(product, result, 'л')).join('')
     : '<div class="item empty">Подходящие грунты не найдены.</div>';
   $('adhesives').innerHTML = adhesiveResults.length
     ? adhesiveResults.map(({ product, result }) => renderProduct(product, result, 'кг')).join('')
