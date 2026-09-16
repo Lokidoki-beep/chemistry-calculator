@@ -222,7 +222,7 @@
     {id: 'hykostik-fiber',
       type: 'adhesive',
       name: 'Hycostik Fiber',
-      covers: ['lvt','cover'],
+      covers: ['lvt'],
       packs: [5, 18],
       requires: {
       'base-type': ['absorbent'],
@@ -241,7 +241,7 @@
     {id: 'hykostik',
       type: 'adhesive',
       name: 'Hycostik',
-      covers: ['lvt'],
+      covers: ['lvt','cover'],
       packs: [5, 18],
       requires: {
       'base-type': ['absorbent'],
