@@ -232,10 +232,7 @@
       'type-fix': ['fix', 'glued'],
       'wet-zone': ['no']
       },
-      consumption: {
-      lvt: 350,
-      cover: {fix: 150, glued: 350}
-      }
+      consumption: {lvt: 350}
     },
 
     {id: 'hykostik',
