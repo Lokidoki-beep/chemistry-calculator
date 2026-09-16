@@ -232,7 +232,7 @@
       'type-fix': ['fix', 'glued'],
       'wet-zone': ['no']
       },
-      consumption: {lvt: 350}
+      consumption: {lvt: 350,}
     },
 
     {id: 'hykostik',
@@ -577,6 +577,7 @@
       if (
         (cover === 'parquet' && criterionId === 'parquet-size') ||
         (cover === 'massiv' && criterionId === 'massiv-size') ||
+        (cover === 'cover' && criterionId === 'type-fix') ||
         (cover === 'lvt' && criterionId === 'pvc-type')
       ) {
         woodWidth.innerHTML = `
